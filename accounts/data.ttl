@@ -1,0 +1,27 @@
+# Figure 7.5 (p. 197).
+PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX account: <http://example.org/account#>
+PREFIX active:  <http://example.org/active#>
+
+active:Account_1
+  rdf:type account:Account ;
+  rdfs:label "Account 1" ;
+  account:firstName "Aaron" ;
+  account:gender "male" ;
+  account:lastName "Beatte" ;
+  account:ssn "123-45-6789" .
+
+active:Account_2
+  rdf:type account:Account ;
+  rdfs:label "Account 2" ;
+  account:firstName "George" ;
+  account:gender "unknown" ;
+  account:lastName "Deller" ;
+  account:ssn "12-345678" .
+
+active:Account_3
+  rdf:type account:Account ;
+  rdfs:label "Account 3" ;
+  account:firstName "Edelyn" ;
+  account:lastName "Zetta" .
