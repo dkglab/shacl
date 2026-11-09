@@ -1,13 +1,16 @@
 # Allemang, Hendler and Gandon, Semantic Web for the Working Ontologist,
-# 3rd ed., Figure 7.4 (p. 195), as printed apart from spacing. There is no
-# sh:targetClass, so a validator has nothing to check: try it.
+# 3rd ed., Figure 7.4 (p. 195), as printed apart from spacing, and one name:
+# the book calls the shape account:Account, the same IRI as the class the
+# data uses. Here the shape is account:AccountShape, so the two can't be
+# confused. There is no sh:targetClass, so a validator has nothing to check:
+# try it.
 PREFIX rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd:     <http://www.w3.org/2001/XMLSchema#>
 PREFIX sh:      <http://www.w3.org/ns/shacl#>
 PREFIX account: <http://example.org/account#>
 
-account:Account
+account:AccountShape
   rdf:type sh:NodeShape ;
   rdfs:label "Account" ;
   sh:property [
