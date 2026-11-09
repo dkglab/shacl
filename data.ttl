@@ -116,7 +116,7 @@ ex:malu a ex:Dog ;
   ] ;
   .
 
-ex:elisa
+ex:elisa a ex:Dog ;
   rdfs:label "II Granaio Dei Malatesta Elisa" ;
   ex:weight [
     rdf:value 12 ;

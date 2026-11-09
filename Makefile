@@ -1,15 +1,8 @@
 SHELL := /usr/bin/env bash
 
-.PHONY: superclean validate
+.PHONY: validate
 
-superclean:
-	$(MAKE) -s -C tools/jena clean
-
-tools/jena/bin/shacl \
-tools/jena/bin/shex :
-	which java || \
-	(sudo apt update && sudo apt -y install default-jre)
-	$(MAKE) -s -C tools/jena
-
-validate: tools/jena/bin/shacl
-	./tools/jena/bin/shacl validate --shapes shapes.ttl --data data.ttl
+# shacl is Jena's, on the PATH in the devcontainer image
+# (ghcr.io/dkglab/shacl-and-owl-dev, built from dkglab/shacl-and-owl).
+validate:
+	shacl validate --shapes shapes.ttl --data data.ttl

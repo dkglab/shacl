@@ -1,11 +1,9 @@
 {
-    "name": "Java",
-    "image": "mcr.microsoft.com/devcontainers/java",
+    "name": "SHACL",
+    "image": "ghcr.io/dkglab/shacl-and-owl-dev:latest",
     "customizations": {
         "vscode": {
             "extensions": [
-                "GitHub.copilot",
-                "GitHub.copilot-chat",
                 "rdfox.rdfox-rdf"
             ]
         }
