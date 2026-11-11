@@ -1,0 +1,25 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# An open shape ignores any property it doesn't mention, so a misspelled
+# property (ex:colour for ex:color) passes every open shape unnoticed.
+# A closed shape allows only the properties named by its own sh:property
+# shapes, and those in sh:ignoredProperties. Anything else is a violation.
+#
+# Try: add  ex:louie ex:colour ex:black .  to data.ttl and validate.
+#
+# Only properties on a path sh:property/sh:path from this shape count as
+# named. Move ex:birthdate and ex:birthplace into an sh:or, and every
+# birthdate and birthplace becomes a violation.
+ex:ClosedDogShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+  sh:property
+    [ sh:path rdfs:label ] , [ sh:path ex:sex ] ,
+    [ sh:path ex:mother ] , [ sh:path ex:father ] ,
+    [ sh:path ex:breed ] , [ sh:path ex:color ] ,
+    [ sh:path ex:birthdate ] , [ sh:path ex:birthplace ] ,
+    [ sh:path ex:weight ] .

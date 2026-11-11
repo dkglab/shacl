@@ -1,0 +1,8 @@
+# Count the results in a validation report by focus node.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+SELECT ?focus (COUNT(?result) AS ?results)
+WHERE {
+  ?result sh:focusNode ?focus .
+}
+GROUP BY ?focus
+ORDER BY DESC(?results) ?focus

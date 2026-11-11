@@ -1,0 +1,9 @@
+# Count the results in a validation report by constraint component.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+SELECT ?component (COUNT(?result) AS ?results)
+WHERE {
+  ?result a sh:ValidationResult ;
+          sh:sourceConstraintComponent ?component .
+}
+GROUP BY ?component
+ORDER BY DESC(?results)

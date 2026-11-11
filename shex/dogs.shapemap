@@ -1,0 +1,15 @@
+# node@shape pairs, separated by commas. Jena needs full IRIs here, not prefixed names.
+<http://example.org/louie>@<http://example.org/DogShape>,
+<http://example.org/tito>@<http://example.org/DogShape>,
+<http://example.org/olly>@<http://example.org/DogShape>,
+<http://example.org/harley>@<http://example.org/DogShape>,
+<http://example.org/lisa>@<http://example.org/DogShape>,
+<http://example.org/puddles>@<http://example.org/DogShape>,
+<http://example.org/dalmazio>@<http://example.org/DogShape>,
+<http://example.org/gus>@<http://example.org/DogShape>,
+<http://example.org/demetrio>@<http://example.org/DogShape>,
+<http://example.org/rigo>@<http://example.org/DogShape>,
+<http://example.org/clotilde>@<http://example.org/DogShape>,
+<http://example.org/gualdarie>@<http://example.org/DogShape>,
+<http://example.org/malu>@<http://example.org/DogShape>,
+<http://example.org/elisa>@<http://example.org/DogShape>

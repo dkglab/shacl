@@ -1,0 +1,16 @@
+# The same kind of thing as a SHACL shape, in ShEx's compact syntax (ShExC).
+# In ShEx a property's default cardinality is exactly one.
+#   ?  zero or one     *  zero or more     +  one or more
+# Shapes have no targets: which nodes to check goes in a shape map.
+
+PREFIX ex:   <http://example.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+ex:DogShape {
+  rdfs:label   xsd:string ;
+  ex:birthdate xsd:date ? ;
+  ex:mother    IRI ? ;
+  ex:father    IRI ? ;
+  ex:color     IRI
+}

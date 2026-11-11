@@ -1,0 +1,26 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# sh:node passes each value (here, each weight) to another shape.
+ex:DogWeightShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:property [
+    sh:path ex:weight ;
+    sh:maxCount 1 ;
+    sh:node ex:WeightShape ;
+    sh:message "A weight is one positive number and one unit" ] .
+
+# No target: this shape checks only the nodes passed to it.
+ex:WeightShape a sh:NodeShape ;
+  sh:property [
+    sh:path rdf:value ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    # 15 is an xsd:integer and 14.51 an xsd:decimal
+    sh:or ( [ sh:datatype xsd:integer ] [ sh:datatype xsd:decimal ] ) ;
+    sh:minExclusive 0 ] ;
+  sh:property [
+    sh:path ex:unit ;
+    sh:minCount 1 ; sh:maxCount 1 ;
+    sh:in ( ex:kilogram ex:pound ) ] .
