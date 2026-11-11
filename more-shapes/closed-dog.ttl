@@ -1,0 +1,21 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# A closed shape allows only the properties named by its own sh:property
+# shapes, and those in sh:ignoredProperties.
+ex:ClosedDogShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:closed true ;
+  sh:ignoredProperties ( rdf:type ) ;
+  sh:property
+    [ sh:path rdfs:label ] , [ sh:path ex:sex ] ,
+    [ sh:path ex:mother ] , [ sh:path ex:father ] ,
+    [ sh:path ex:breed ] , [ sh:path ex:color ] ,
+    [ sh:path ex:weight ] ;
+  # Are ex:birthdate and ex:birthplace allowed?
+  sh:or (
+    [ sh:path ex:birthdate ; sh:minCount 1 ]
+    [ sh:path ex:birthplace ; sh:minCount 1 ]
+  ) .

@@ -1,0 +1,12 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# A dog's parents were born before it was. This looks as if it needs
+# SPARQL, but core SHACL can say it: sh:lessThan compares each value at the
+# end of the path with each of the focus node's own values of a property.
+ex:ParentsBornFirstShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:property [
+    sh:path ( [ sh:alternativePath ( ex:mother ex:father ) ] ex:birthdate ) ;
+    sh:lessThan ex:birthdate ;
+    sh:message "A parent was born on or after this dog" ] .

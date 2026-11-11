@@ -1,0 +1,27 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# SHACL-SPARQL: a constraint written as a SPARQL query. Every row the
+# query returns is a violation. $this is bound to each focus node in turn.
+#
+# Core SHACL can't say this: no core constraint compares a value with the
+# focus node itself.
+
+# The prefixes the query may use are declared in the shapes graph.
+ex: sh:declare [
+  sh:prefix "ex" ;
+  sh:namespace "http://example.org/"^^xsd:anyURI ] .
+
+ex:NotOwnAncestorShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "{$this} is one of its own ancestors" ;
+    sh:prefixes ex: ;
+    sh:select """
+      SELECT $this
+      WHERE {
+        $this (ex:mother|ex:father)+ $this .
+      }
+    """ ] .

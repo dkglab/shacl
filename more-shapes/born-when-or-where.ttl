@@ -1,0 +1,12 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# A dog conforms if it conforms to either shape in the list.
+# Try sh:xone (exactly one) instead of sh:or, and sh:and.
+ex:BornWhenOrWhereShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:or (
+    [ sh:path ex:birthdate ; sh:minCount 1 ]
+    [ sh:path ex:birthplace ; sh:minCount 1 ]
+  ) ;
+  sh:message "Say when or where this dog was born" .
