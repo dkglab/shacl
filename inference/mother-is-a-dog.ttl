@@ -1,0 +1,13 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# A dog's mother must be a dog. The data conforms as it is. Delete
+# `a ex:Dog` from Elisa in data.ttl and it doesn't: her pups' mother is
+# no longer known to be a dog. RDFS can supply the missing type, so
+# validate again after inference (make after-inference).
+ex:MotherIsADogShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:property [
+    sh:path ex:mother ;
+    sh:class ex:Dog ;
+    sh:message "A dog's mother must be known to be a dog" ] .

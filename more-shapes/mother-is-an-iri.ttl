@@ -1,0 +1,12 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+
+# The check people hoped owl:ObjectProperty would make: a mother is a
+# node with an IRI, not a name. Add ex:louie ex:mother "Puddles" to
+# data.ttl to see it fail.
+ex:MotherIsAnIRIShape a sh:NodeShape ;
+  sh:targetSubjectsOf ex:mother ;
+  sh:property [
+    sh:path ex:mother ;
+    sh:nodeKind sh:IRI ;
+    sh:message "A mother must be an IRI, not a literal" ] .

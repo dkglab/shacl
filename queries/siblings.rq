@@ -1,0 +1,10 @@
+# The CONSTRUCT from more-shapes/sibling-rule.ttl, with ?this for $this
+# and the target as a triple pattern.
+PREFIX ex: <http://example.org/>
+CONSTRUCT { ?this ex:sibling ?sibling }
+WHERE {
+  ?this a ex:Dog ;
+        ex:mother ?mother .
+  ?sibling ex:mother ?mother .
+  FILTER (?sibling != ?this)
+}

@@ -1,0 +1,24 @@
+# The 17 Nov handout's exercise 2: which of these ten triples are in the
+# data or follow from it? Run on skos/lcsh.ttl plus skos/inferred.ttl.
+PREFIX lcsh: <http://id.loc.gov/authorities/subjects/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX aat: <http://vocab.getty.edu/aat/>
+
+SELECT ?n ?s ?p ?o ?holds
+WHERE {
+  VALUES (?n ?s ?p ?o) {
+    ( 1 lcsh:sh98004876   skos:broader           lcsh:sh85038796 )
+    ( 2 lcsh:sh98004876   skos:broaderTransitive lcsh:sh85038796 )
+    ( 3 lcsh:sh2010012761 skos:broaderTransitive lcsh:sh85147257 )
+    ( 4 lcsh:sh85038796   skos:narrower          lcsh:sh98000776 )
+    ( 5 lcsh:sh2008020177 skos:narrowerTransitive lcsh:sh98004876 )
+    ( 6 lcsh:sh98004876   skos:broaderTransitive lcsh:sh2012002084 )
+    ( 7 lcsh:sh2010012761 skos:broaderTransitive lcsh:sh2012002084 )
+    ( 8 wd:Q144           skos:closeMatch        lcsh:sh85038796 )
+    ( 9 wd:Q144           skos:closeMatch        aat:300250130 )
+    (10 lcsh:sh85038796   skos:exactMatch        wd:Q144 )
+  }
+  BIND (EXISTS { ?s ?p ?o } AS ?holds)
+}
+ORDER BY ?n

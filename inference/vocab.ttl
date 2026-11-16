@@ -1,0 +1,7 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# A little RDFS for the dogs. A mother or father is a dog, so RDFS
+# infers that whatever is a dog's mother or father is a dog too.
+ex:mother rdfs:range ex:Dog .
+ex:father rdfs:range ex:Dog .

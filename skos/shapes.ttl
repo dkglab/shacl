@@ -1,0 +1,15 @@
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# Two of the SKOS integrity conditions that the SKOS RDF states only in
+# comments (see skos.ttl), as shapes.
+skos:ConceptShape a sh:NodeShape ;
+  sh:targetClass skos:Concept ;
+  sh:property [
+    sh:path skos:prefLabel ;
+    sh:uniqueLang true ;
+    sh:message "No more than one preferred label per language" ] ;
+  sh:property [
+    sh:path skos:related ;
+    sh:disjoint skos:broaderTransitive ;
+    sh:message "A related concept can't also be a broader one" ] .

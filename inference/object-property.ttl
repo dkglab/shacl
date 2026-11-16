@@ -1,0 +1,6 @@
+PREFIX ex: <http://example.org/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+# Declaring ex:mother an object property: its values should be things,
+# not literals. Does a reasoner object to ex:louie ex:mother "Puddles"?
+ex:mother a owl:ObjectProperty .
