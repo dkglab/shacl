@@ -52,6 +52,8 @@ assignment's.
   `owl:ObjectProperty`, and what
   [`more-shapes/mother-is-an-iri.ttl`](more-shapes/mother-is-an-iri.ttl)
   makes of it.
+- [`more-shapes/dog-form.ttl`](more-shapes/dog-form.ttl) is a shape with
+  `sh:name` and `sh:order`, which a tool could turn into a form.
 - [`more-shapes/sibling-rule.ttl`](more-shapes/sibling-rule.ttl) is a SHACL
   rule. Jena doesn't run rules, so `make siblings` runs its CONSTRUCT.
 - [`skos/`](skos/) has eight Library of Congress Subject Headings
