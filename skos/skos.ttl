@@ -1,0 +1,36 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+# Part of the SKOS vocabulary's own definition, copied from
+# http://www.w3.org/2004/02/skos/core (the RDF that the namespace serves).
+# Each line here is a triple there.
+
+skos:broader rdfs:subPropertyOf skos:broaderTransitive ;
+  owl:inverseOf skos:narrower .
+skos:narrower rdfs:subPropertyOf skos:narrowerTransitive ;
+  owl:inverseOf skos:broader .
+
+skos:broaderTransitive a owl:TransitiveProperty ;
+  owl:inverseOf skos:narrowerTransitive .
+skos:narrowerTransitive a owl:TransitiveProperty ;
+  owl:inverseOf skos:broaderTransitive .
+
+skos:related a owl:SymmetricProperty .
+
+skos:closeMatch a owl:SymmetricProperty .
+skos:exactMatch a owl:SymmetricProperty , owl:TransitiveProperty ;
+  rdfs:subPropertyOf skos:closeMatch .
+
+skos:notation a owl:DatatypeProperty .
+skos:prefLabel a owl:AnnotationProperty .
+
+# And some of what the SKOS RDF can only say in a comment:
+#
+# skos:prefLabel  rdfs:comment "A resource has no more than one value of
+#   skos:prefLabel per language tag, and no more than one value of
+#   skos:prefLabel without language tag."
+# skos:related  rdfs:comment "skos:related is disjoint with
+#   skos:broaderTransitive"
+#
+# shapes.ttl, beside this file, says them in SHACL.

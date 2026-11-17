@@ -1,0 +1,29 @@
+PREFIX ex: <http://example.org/>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# A SHACL rule (SHACL Advanced Features, 2017; SHACL 1.2 Rules is in
+# progress): a SPARQL CONSTRUCT attached to a shape, run once for each
+# focus node, with $this bound to it. The triples it constructs are added
+# to the data.
+#
+# Jena's shacl command validates but doesn't run rules, so
+# `make siblings` runs the same CONSTRUCT with arq, with ?this for $this.
+
+ex: sh:declare [
+  sh:prefix "ex" ;
+  sh:namespace "http://example.org/"^^xsd:anyURI ] .
+
+ex:SiblingRuleShape a sh:NodeShape ;
+  sh:targetClass ex:Dog ;
+  sh:rule [
+    a sh:SPARQLRule ;
+    sh:prefixes ex: ;
+    sh:construct """
+      CONSTRUCT { $this ex:sibling ?sibling }
+      WHERE {
+        $this ex:mother ?mother .
+        ?sibling ex:mother ?mother .
+        FILTER (?sibling != $this)
+      }
+    """ ] .
