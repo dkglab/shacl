@@ -85,3 +85,35 @@ skos-validate: skos/lcsh-inferred.nt
 	@shacl validate --shapes skos/shapes.ttl --data skos/lcsh.ttl --text
 	@echo "== skos/lcsh.ttl plus skos/inferred.ttl"
 	@shacl validate --shapes skos/shapes.ttl --data $< --text
+
+# 12 Nov: shapes as queries --------------------------------------------------
+#
+# Each queries/twin-*.rq is a SPARQL query meant to find the same focus nodes
+# as one constraint in exercises/. make twins runs each query on data.ttl and
+# compares its ?this column with the focus nodes that constraint's component
+# flags in the shape's validation report. twin-3-mother-wrong.rq is meant to
+# disagree: it checks only the sexes that are there.
+
+twins/%.report.ttl: exercises/%.ttl data.ttl
+	@mkdir -p twins
+	shacl validate --shapes $< --data data.ttl > $@
+
+# $(call twin,query,exercise,constraint component)
+define twin
+@if diff <(arq --data data.ttl --query $(1) --results=TSV | tail -n +2 | cut -f1 | sort -u) \
+         <(arq --data twins/$(2).report.ttl --query queries/focus-nodes.rq --results=TSV \
+           | awk -F'\t' '$$1 == "<http://www.w3.org/ns/shacl#$(3)>" { print $$2 }' | sort -u) \
+         > twins/diff; \
+  then echo "same       $(1)  =  $(2) sh:$(3)  ($$(arq --data data.ttl --query $(1) --results=TSV | tail -n +2 | wc -l) focus nodes)"; \
+  else echo "DIFFERENT  $(1)  ≠  $(2) sh:$(3)  (< query only, > shape only)"; sed -n 's/^\([<>]\)/             \1/p' twins/diff; \
+  fi
+endef
+
+.PHONY: twins
+twins: twins/1-sex.report.ttl twins/2-color.report.ttl twins/4-mothers.report.ttl
+	$(call twin,queries/twin-1-sex-in.rq,1-sex,InConstraintComponent)
+	$(call twin,queries/twin-1-sex-mincount.rq,1-sex,MinCountConstraintComponent)
+	$(call twin,queries/twin-2-color.rq,2-color,MaxCountConstraintComponent)
+	$(call twin,queries/twin-2-color-count.rq,2-color,MaxCountConstraintComponent)
+	$(call twin,queries/twin-3-mother.rq,4-mothers,HasValueConstraintComponent)
+	$(call twin,queries/twin-3-mother-wrong.rq,4-mothers,HasValueConstraintComponent)

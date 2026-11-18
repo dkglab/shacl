@@ -33,6 +33,13 @@ A validation report is RDF, so it can be queried. `make report` validates
 the data against all the exercise shapes at once, saves the report as
 `report.ttl`, and runs the queries in [`queries/`](queries/) on it.
 
+Each `queries/twin-*.rq` is a SPARQL query written to find the same dogs as
+one of the exercise shapes, from the 12 Nov handout. `make twins` runs each
+twin and compares what it finds with the validation report for its shape.
+`twin-3-mother-wrong.rq` is the answer that looks right but isn't: it
+checks only the sexes that are there, so it misses mothers with no `ex:sex`
+at all.
+
 [`shex/dog.shex`](shex/dog.shex) is a dog shape in ShEx, the other shapes
 language. `make shex` checks every dog against it.
 

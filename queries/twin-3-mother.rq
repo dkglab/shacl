@@ -1,0 +1,10 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# twin: ex:MotherShape sh:HasValueConstraintComponent   (4)
+# Without DISTINCT Elisa and Malu come back twice: each is named by two dogs.
+SELECT DISTINCT ?this
+WHERE {
+  ?pup ex:mother ?this .
+  FILTER NOT EXISTS { ?this ex:sex ex:female }
+}

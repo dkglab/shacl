@@ -1,0 +1,9 @@
+# The focus nodes in a validation report, with the constraint component
+# that flagged each one. make twins compares these with a twin's ?this.
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+SELECT DISTINCT ?component ?this
+WHERE {
+  ?result a sh:ValidationResult ;
+          sh:sourceConstraintComponent ?component ;
+          sh:focusNode ?this .
+}

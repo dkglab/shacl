@@ -1,0 +1,10 @@
+PREFIX ex: <http://example.org/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+# The expected wrong answer: it checks only the sexes that are there.  (0)
+SELECT DISTINCT ?this
+WHERE {
+  ?pup ex:mother ?this .
+  ?this ex:sex ?sex .
+  FILTER (?sex != ex:female)
+}
